@@ -1,64 +1,72 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Car;
 
 use Illuminate\Http\Request;
 
 class CarController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
     {
-        //
-    }
+        public function index()
+        {
+            $cars = Car::all(); // Fetch all cars
+            return view('cars.index', compact('cars'));  // Make sure you have an index view
+        }
+    
+        public function create()
+        {
+            return view('cars.create');  // Make sure you have a create view
+        }
+    
+        public function store(Request $request)
+        {
+            $validatedData = $request->validate([
+                'make' => 'required',
+                'model' => 'required',
+                'year' => 'required'
+            ]);
+    
+            $car = new Car($validatedData);
+            $car->user_id = auth()->id();
+            $car->save();
+    
+            return redirect()->route('cars.index')->with('success', 'Car added successfully');
+        }
+    
+        public function show($id)
+        {
+            $car = Car::findOrFail($id);
+            return view('cars.show', compact('car'));  // Make sure you have a show view
+        }
+    
+        public function edit($id)
+        {
+            $car = Car::findOrFail($id);
+            return view('cars.edit', compact('car'));  // Make sure you have an edit view
+        }
+    
+        public function update(Request $request, $id)
+        {
+            $validatedData = $request->validate([
+                'make' => 'required',
+                'model' => 'required',
+                'year' => 'required'
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            ]);
+    
+            $car = Car::findOrFail($id);
+            $car->update($validatedData);
+    
+            return redirect()->route('cars.index')->with('success', 'Car updated successfully');
+        }
+    
+        public function destroy($id)
+        {
+            $car = Car::findOrFail($id);
+            $car->delete();
+    
+            return redirect()->route('cars.index')->with('success', 'Car deleted successfully');
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-}
+}   
