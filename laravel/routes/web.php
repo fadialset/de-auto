@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return Auth::check() ? redirect('/dashboard') : redirect('/login');
 });
 
 Route::get('/dashboard', function () {
