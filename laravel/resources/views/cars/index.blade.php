@@ -2,39 +2,32 @@
 
 @extends('layouts.app')
 
+{{-- resources/views/cars/index.blade.php --}}
+
+@extends('layouts.app')
+
 @section('content')
-<div class="container">
-    <h1>Cars List</h1>
-    <a href="{{ route('cars.create') }}" class="btn btn-primary">Add New Car</a>
-    <table class="table table-striped mt-4">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($cars as $car)
-                <tr>
-                    <td>{{ $car->id }}</td>
-                    <td>{{ $car->make }}</td>
-                    <td>{{ $car->model }}</td>
-                    <td>{{ $car->year }}</td>
-                    <td>
-                        <a href="{{ route('cars.show', $car->id) }}" class="btn btn-info">View</a>
-                        <a href="{{ route('cars.edit', $car->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('cars.destroy', $car->id) }}" method="POST" style="display:inline-block;">
+<div class="container mx-auto px-4 py-8">
+    <div class="grid md:grid-cols-3 gap-4">
+        @foreach ($cars as $car)
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+            <img src="{{ route('car.image', ['id' => $car->id]) }}" alt="Car Image">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg">{{ $car->make }} {{ $car->model }}</h3>
+                    <p class="text-gray-700">Year: {{ $car->year }}</p>
+                    <p class="text-gray-700">Price: ${{ number_format($car->price, 2) }}</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <a href="{{ route('cars.edit', $car->id) }}" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
+                        <form action="{{ route('cars.destroy', $car->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="text-sm bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
                         </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </div>
 @endsection
+

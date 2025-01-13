@@ -18,20 +18,24 @@ class CarController extends Controller
         {
             return view('cars.create');  // Make sure you have a create view
         }
-    
         public function store(Request $request)
         {
-            $validatedData = $request->validate([
-                'make' => 'required',
-                'model' => 'required',
-                'year' => 'required'
+            $request->validate([
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-    
-            $car = new Car($validatedData);
+        
+            $car = new Car($request->except('image'));
+            
             $car->user_id = auth()->id();
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $car->image = file_get_contents($image->getRealPath());
+                $car->mime_type = $image->getMimeType();  // Store MIME type in the database
+            }
+        
             $car->save();
-    
-            return redirect()->route('cars.index')->with('success', 'Car added successfully');
+        
+            return redirect()->route('cars.index');
         }
     
         public function show($id)
@@ -67,6 +71,19 @@ class CarController extends Controller
             $car->delete();
     
             return redirect()->route('cars.index')->with('success', 'Car deleted successfully');
+        }
+
+        public function getImage($id)
+        {
+            $car = Car::findOrFail($id);
+            if (empty($car->image)) {
+                abort(404, 'Image not found.');
+            }
+        
+            $response = response()->make($car->image);
+            $response->header("Content-Type", $car->mime_type);
+            $response->header("Referrer-Policy", 'no-referrer-when-downgrade');
+            return $response;
         }
 
 }   

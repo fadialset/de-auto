@@ -11,6 +11,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');    
 
+Route::get('/car/image/{id}', [CarController::class, 'getImage'])->name('car.image');
+
+
 Route::middleware(['auth'])->group(function () {
     Route::resource('cars', 'App\Http\Controllers\CarController');
 
