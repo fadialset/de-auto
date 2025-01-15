@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('fuel_type')->nullable();
             $table->string('body_type')->nullable();
             $table->decimal('price', 10, 2)->nullable();
-            $table->binary('image')->nullable();  // Storing image data as binary
+            $table->string('image')->nullable();  
             $table->timestamps();
-            $table->string('mime_type')->nullable();  // Column for storing MIME type
+            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
