@@ -4,11 +4,11 @@
 
 @section('content')
 <div class="container m-1 px-4 py-8 ">
-<h1 class="text-5xl text-red-700">De auto dashboard</h1>
+<h1 class="text-5xl text-red-700">Mijn auto's</h1>
     <div class="flex flex-wrap gap-4">
         @foreach ($cars as $car)
             <div class="bg-white rounded-lg shadow overflow-hidden">
-                <img src="{{ asset('storage/' . $car->image) }}" alt="Car Image" class="h-48 w-48 object-cover md:h-24 md:w-24">
+            <img src="{{ asset('storage/' . $car->image) }}" alt="Car Image" class="w-48 h-48 object-contain">
                 <div class="p-4">
                     <p class='text-2xl	text-red-700'>{{ $car->make }} {{ $car->model }}</p>
                     <p class="text-gray-700"><b>Jaar:</b> {{ $car->year }}</p>
