@@ -13,7 +13,14 @@ Route::get('/dashboard', function () {
 
 Route::get('/car/image/{id}', [CarController::class, 'getImage'])->name('car.image');
 Route::resource('public-cars', App\Http\Controllers\PublicCarController::class);
-Route::post('/public-cars/{id}/add-to-my-cars', [App\Http\Controllers\PublicCarController::class, 'addToMyCars'])->name('public-cars.add-to-my-cars')->middleware('auth');
+use App\Http\Controllers\PublicCarController;
+
+// Public cars route
+Route::resource('public-cars', PublicCarController::class);
+Route::post('/public-cars/{id}/add-to-my-cars', [PublicCarController::class, 'addToMyCars'])
+    ->name('public-cars.add-to-my-cars')
+    ->middleware('auth');
+
 
 
 

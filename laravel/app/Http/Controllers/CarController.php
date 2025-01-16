@@ -29,7 +29,7 @@ class CarController extends Controller
         ]);
 
         $car = new Car($request->except('image'));
-        $car->user_id = auth()->id();  // Assuming you want to store the user ID
+        $car->user_id = auth()->id();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
