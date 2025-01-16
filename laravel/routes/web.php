@@ -12,6 +12,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');    
 
 Route::get('/car/image/{id}', [CarController::class, 'getImage'])->name('car.image');
+Route::resource('public-cars', App\Http\Controllers\PublicCarController::class);
+Route::post('/public-cars/{id}/add-to-my-cars', [App\Http\Controllers\PublicCarController::class, 'addToMyCars'])->name('public-cars.add-to-my-cars')->middleware('auth');
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -24,5 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';
