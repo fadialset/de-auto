@@ -2,14 +2,18 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CarController;
 Route::get('/', function () {
     return Auth::check() ? redirect('/dashboard') : redirect('/login');
 });
 
 Route::get('/dashboard', function () {
+    if (auth()->user()->isAdmin()) {
+        return app(AdminController::class)->dashboard();
+    }
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');    
+})->middleware(['auth', 'verified'])->name('dashboard');  
 
 Route::get('/car/image/{id}', [CarController::class, 'getImage'])->name('car.image');
 Route::resource('public-cars', App\Http\Controllers\PublicCarController::class);
