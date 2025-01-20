@@ -10,17 +10,8 @@ class CarsTableSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::where('role', 'user')->get();
-        
-        // Available car images
-        $carImages = [
-            'uploads/cars/car_1.jpg',
-            'uploads/cars/car_2.jpg',
-            'uploads/cars/car_3.jpeg',
-            'uploads/cars/car_4.jpeg',
-            'uploads/cars/1736957326.jpg',
-            'uploads/cars/1736959762.webp'
-        ];
+        // Clear existing cars
+        Car::truncate();
 
         $makes = ['BMW', 'Mercedes', 'Audi', 'Volkswagen', 'Toyota', 'Honda', 'Ford', 'Opel'];
         $models = [
@@ -31,31 +22,44 @@ class CarsTableSeeder extends Seeder
             'Toyota' => ['Corolla', 'RAV4', 'Yaris', 'Camry'],
             'Honda' => ['Civic', 'CR-V', 'Jazz', 'HR-V'],
             'Ford' => ['Focus', 'Fiesta', 'Kuga', 'Puma'],
-            'Opel' => ['Astra', 'Corsa', 'Mokka', 'Crossland'],
+            'Opel' => ['Astra', 'Corsa', 'Mokka', 'Crossland']
         ];
+        
         $colors = ['Zwart', 'Wit', 'Grijs', 'Blauw', 'Rood', 'Zilver'];
-        $transmissions = ['automatic', 'manual'];
-        $fuelTypes = ['benzine', 'diesel', 'elektrisch', 'hybride', 'lpg'];
-        $bodyTypes = ['hatchback', 'sedan', 'stationwagon', 'suv', 'coupe', 'cabriolet', 'mpv'];
+        $transmissions = ['Automatisch', 'Handgeschakeld'];
+        $fuelTypes = ['Benzine', 'Diesel', 'Elektrisch', 'Hybride'];
+        $bodyTypes = ['Hatchback', 'Sedan', 'Stationwagon', 'SUV', 'Coupe'];
+        
+        $carImages = [
+            'uploads/cars/car_1.jpg',
+            'uploads/cars/car_2.jpg',
+            'uploads/cars/car_3.jpeg',
+            'uploads/cars/car_4.jpeg'
+        ];
 
-        // Create 50 cars
-        for ($i = 0; $i < 50; $i++) {
-            $make = $makes[array_rand($makes)];
-            $model = $models[$make][array_rand($models[$make])];
-            
-            Car::create([
-                'user_id' => $users->random()->id, // Randomly assign to users
-                'make' => $make,
-                'model' => $model,
-                'year' => rand(2010, 2023),
-                'color' => $colors[array_rand($colors)],
-                'transmission' => $transmissions[array_rand($transmissions)],
-                'fuel_type' => $fuelTypes[array_rand($fuelTypes)],
-                'mileage' => rand(10000, 200000),
-                'price' => rand(5000, 50000),
-                'body_type' => $bodyTypes[array_rand($bodyTypes)],
-                'image' => $carImages[array_rand($carImages)], // Randomly select from existing images
-            ]);
+        // Get all users except admin
+        $users = User::where('role', 'user')->get();
+
+        foreach ($users as $user) {
+            // Create 20 cars for each user
+            for ($i = 0; $i < 20; $i++) {
+                $make = $makes[array_rand($makes)];
+                $model = $models[$make][array_rand($models[$make])];
+                
+                Car::create([
+                    'user_id' => $user->id,
+                    'make' => $make,
+                    'model' => $model,
+                    'year' => rand(2015, 2024),
+                    'color' => $colors[array_rand($colors)],
+                    'transmission' => $transmissions[array_rand($transmissions)],
+                    'mileage' => rand(0, 150000),
+                    'fuel_type' => $fuelTypes[array_rand($fuelTypes)],
+                    'body_type' => $bodyTypes[array_rand($bodyTypes)],
+                    'price' => rand(5000, 50000),
+                    'image' => $carImages[array_rand($carImages)]
+                ]);
+            }
         }
     }
 }
