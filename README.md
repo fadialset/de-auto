@@ -149,12 +149,12 @@ Na het seeden kun je inloggen met deze gegevens:
 
 **Admin Gebruiker:**
 
--   Email: admin@example.com
+-   Email: admin@2way2.com
 -   Wachtwoord: password
 
 **Normale Gebruiker:**
 
--   Email: user@example.com
+-   Email: user1@2way2.com
 -   Wachtwoord: password
 
 ## 🚀 Gebruik
