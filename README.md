@@ -34,8 +34,10 @@ Een Laravel-based CRUD applicatie voor het beheren van gebruikers en hun auto's.
 #### PHP Installeren (macOS)
 
 bash
+```
 brew install php
 brew install mysql
+```
 
 #### Composer Installeren
 
@@ -53,44 +55,57 @@ brew install mysql
 1. Clone de repository
 
 bash
+```
 git clone https://github.com/fadialset/de-auto.git
 cd de-auto
+```
 
 2. Installeer PHP dependencies
    bash
+   ```
    composer install
+   ```
 
-3. Installeer Node.js dependencies
+4. Installeer Node.js dependencies
    bash
+   ```
    npm install
+   ```
 
-4. Maak environment bestand aan
+5. Maak environment bestand aan
    bash
+   ```
    cp .env.example .env
+   ```
 
-5. Genereer applicatie sleutel
+6. Genereer applicatie sleutel
 
 bash
+```
 php artisan key:generate
+```
 
 ### Stap 3: Database Setup
 
 1. Maak een nieuwe MySQL database aan
 
 bash
+```
 mysql -u root -p
 CREATE DATABASE de_auto;
 exit;
-
+```
 2. Update .env bestand met je database gegevens
 
 env
+```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=de_auto
 DB_USERNAME=jouw_username
 DB_PASSWORD=jouw_password
+```
 
 3. Voer migraties en seeders uit
 
@@ -99,24 +114,32 @@ DB_PASSWORD=jouw_password
 1. Maak storage link aan
 
 bash
+```
 php artisan storage:link
+```
 
 2. Zet juiste permissies (Unix systemen)
 
 bash
+```
 chmod -R 775 storage bootstrap/cache
+```
 
 ### Stap 5: Applicatie Starten
 
 1. Start de development server
 
 bash
+```
 php artisan serve
+```
 
 2. Compileer assets
 
 bash
+```
 npm run dev
+```
 
 3. Bezoek [http://localhost:8000](http://localhost:8000) in je browser
 
@@ -153,20 +176,28 @@ Na het seeden kun je inloggen met deze gegevens:
     - Bekijk systeemstatistieken
 
 ## 📁 Project Structuur
-
+```
 de-auto/
 ├── app/
-│ ├── Http/Controllers/ # Controllers
-│ ├── Models/ # Eloquent Models
-│ └── Livewire/ # Livewire Components
+│   ├── Http/Controllers/   # Controllers
+│   ├── Models/             # Eloquent Models
+│   └── Livewire/           # Livewire Components
 ├── database/
-│ ├── migrations/ # Database Migraties
-│ └── seeders/ # Database Seeders
+│   ├── migrations/         # Database Migraties
+│   └── seeders/            # Database Seeders
 ├── resources/
-│ ├── views/ # Blade Templates
-│ └── css/ # Stylesheets
-└── routes/
-└── web.php # Web Routes
+│   ├── views/              # Blade Templates
+│   └── css/                # Stylesheets
+├── routes/
+│   └── web.php             # Web Routes
+├── public/                 # Publieke bestanden
+├── storage/                # Uploads & Caches
+├── tests/                  # Test bestanden
+├── vendor/                 # Dependencies
+├── .env.example            # Voorbeeld environment bestand
+├── composer.json           # PHP Dependencies
+└── package.json            # NPM Dependencies
+```
 
 ## 🔒 Beveiliging
 
