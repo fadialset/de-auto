@@ -6,27 +6,21 @@
 <div class="container mx-auto mt-5">
     <div class="flex flex-col">
         <div class="w-full">
-            @if ($errors->any())
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @if (session('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-                    <span class="block sm:inline">{{ session('success') }}</span>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                    <span class="block sm:inline">{{ session('error') }}</span>
-                </div>
-            @endif
+        @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@elseif (session('error'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+        <ul>
+            <li>{{ session('error') }}</li>
+        </ul>
+    </div>
+@endif
 
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div class="mb-4">
