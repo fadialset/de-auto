@@ -8,14 +8,6 @@ use Illuminate\Http\Request;
 
 class PublicCarController extends Controller
 {
-    // Show the list of public cars and the user's current cars
-    public function index()
-    {
-        $publicCars = PublicCar::all();
-        $userCars = Car::where('user_id', auth()->id())->get(); // Get user's cars
-
-        return view('public_cars.index', compact('publicCars', 'userCars'));
-    }
 
     // Add a public car to the authenticated user's collection
     public function addToMyCars($id)
