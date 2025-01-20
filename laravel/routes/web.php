@@ -40,5 +40,11 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+
+
 
 require __DIR__.'/auth.php';
