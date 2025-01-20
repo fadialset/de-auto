@@ -19,7 +19,7 @@
                         <th class="px-6 py-3 text-left">Model</th>
                         <th class="px-6 py-3 text-left">Jaar</th>
                         <th class="px-6 py-3 text-left">Eigenaar</th>
-                        <th class="px-6 py-3 text-left">Acties</th>
+                        <th class="px-6 py-3 text-center">Acties</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,8 +29,17 @@
                         <td class="px-6 py-4">{{ $car->model }}</td>
                         <td class="px-6 py-4">{{ $car->year }}</td>
                         <td class="px-6 py-4">{{ $car->user->name ?? 'Geen Eigenaar' }}</td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-right">
                             <a href="{{ route('cars.edit', $car->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Bewerken</a>
+                            <form action="{{ route('admin.cars.destroy', $car->id) }}" method="POST" class="inline ml-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                        class="bg-red hover:bg-red text-white font-bold py-2 px-4 rounded"
+                                        onclick="return confirm('Weet je zeker dat je deze auto wilt verwijderen?')">
+                                    Verwijderen
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

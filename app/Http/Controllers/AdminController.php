@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Car;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -53,6 +54,26 @@ public function destroyUser(User $user)
     } catch (\Exception $e) {
         return redirect()->back()
             ->with('error', 'Er is een fout opgetreden bij het verwijderen van de gebruiker.');
+    }
+}
+
+public function destroyCar($id)
+{
+    try {
+        $car = Car::findOrFail($id);
+        
+        // Delete the car's image if it exists
+        if ($car->image && Storage::disk('public')->exists($car->image)) {
+            Storage::disk('public')->delete($car->image);
+        }
+        
+        $car->delete();
+        
+        return redirect()->back()
+            ->with('success', 'Auto is succesvol verwijderd.');
+    } catch (\Exception $e) {
+        return redirect()->back()
+            ->with('error', 'Er is een fout opgetreden bij het verwijderen van de auto.');
     }
 }
 }

@@ -38,5 +38,6 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adm
 Route::get('/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
 Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
 Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+Route::delete('/admin/cars/{car}', [AdminController::class, 'destroyCar'])->name('admin.cars.destroy');
 
 require __DIR__.'/auth.php';

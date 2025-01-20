@@ -71,9 +71,14 @@ class CarController extends Controller
             $car->user_id = auth()->id();
 
             if ($request->hasFile('image')) {
+                $yearMonth = 'uploads/cars/' . date('Y/m');
+                if (!Storage::disk('public')->exists($yearMonth)) {
+                    Storage::disk('public')->makeDirectory($yearMonth);
+                }
+                
                 $file = $request->file('image');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('uploads/cars', $filename, 'public');
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs($yearMonth, $filename, 'public');
                 $car->image = $path;
             }
 
