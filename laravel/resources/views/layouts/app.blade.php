@@ -26,7 +26,9 @@
                     </div>
                 </header>
             @endisset
-
+            <div class="container mx-auto px-4 mt-4">
+        <x-notification />
+    </div>
             <!-- Page Content -->
             <main class="m-4">
             @yield('content')
