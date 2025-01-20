@@ -17,7 +17,7 @@
                     </x-nav-link>
                     @if(!auth()->user()->isAdmin())
                         <x-nav-link :href="route('cars.index')" :active="request()->routeIs('cars.index')">
-                            {{ __('Cars') }}
+                            {{ __('Mijn Autos') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -77,7 +77,7 @@
                 </x-responsive-nav-link>
                 @if(!auth()->user()->isAdmin())
                 <x-responsive-nav-link :href="route('cars.index')" :active="request()->routeIs('cars.index')">
-                    {{ __('Cars') }}
+                    {{ __('Mijn Autos') }}
                 </x-responsive-nav-link>
             @endif
         </div>

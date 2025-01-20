@@ -1,8 +1,8 @@
-<div>
-    <h1 class="text-5xl mb-6">Public Cars</h1>
-    <div class="grid md:grid-cols-3 gap-4">
+<div class='py-12 bg-white'>
+    <h1 class="text-5xl mb-6 text-center">Public Autos</h1>
+    <div class="grid md:grid-cols-3 gap-4 p-4">
         @foreach ($publicCars as $car)
-            <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="bg-blue-100 rounded-lg shadow-md overflow-hidden ">
                 <img src="{{ asset('storage/' . $car->image) }}" alt="Car Image" class="object-cover w-full h-48">
                 <div class="p-4">
                     <p class="text-2xl text-red-700">{{ $car->make }} {{ $car->model }}</p>
