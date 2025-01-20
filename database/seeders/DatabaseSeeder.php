@@ -30,11 +30,13 @@ class DatabaseSeeder extends Seeder
         // Copy default images from resources to storage
         $defaultImages = ['car_1.jpg', 'car_2.jpg', 'car_3.jpeg', 'car_4.jpeg'];
         foreach ($defaultImages as $image) {
-            if (File::exists(resource_path('images/cars/' . $image))) {
+            if (File::exists(resource_path('sample-images/cars/' . $image))) {
                 File::copy(
-                    resource_path('images/cars/' . $image),
+                    resource_path('sample-images/cars/' . $image),
                     storage_path('app/public/uploads/cars/' . $image)
                 );
+            } else {
+                echo "Warning: Sample image {$image} not found in resources/sample-images/cars\n";
             }
         }
 
