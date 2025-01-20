@@ -1,2 +1,13 @@
 [phases.setup]
-nixPkgs = ['php81', 'php81Extensions.pdo_mysql'] 
+nixPkgs = [
+    "php81",
+    "php81Extensions.curl",
+    "php81Extensions.pdo_mysql",
+    "php81Extensions.zip",
+    "php81Extensions.openssl"
+]
+
+[phases.install]
+cmds = [
+    "curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer"
+] 
